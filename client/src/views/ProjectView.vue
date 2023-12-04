@@ -1,0 +1,43 @@
+<template>
+    <div class="row">
+        <project-card v-for="(project, index) in projects" :key="index" :project="project" />
+    </div>
+</template>
+
+<script>
+import { mapActions, mapState } from 'pinia'
+import ProjectCard from '../components/ProjectCard.vue'
+import { useIProject } from '../stores/IProject'
+export default {
+    components: { ProjectCard },
+    data() {
+        return {
+            valueProject: false,
+            // bg_img: [{ bg_img: "https://image1ws.indotrading.com/s3/productimages/webp/co6904/p1110756/w425-h425/099370a8-3808-401d-ae9a-33f0643c9d21.jpg", url: "https://www.cnnindonesia.com/nasional/20171220173012-12-263796/kpk-sebut-kerugian-negara-proyek-e-ktp-tetap-rp23-triliun#:~:text=Sebelumnya%2C%20kuasa%20hukum%20terdakwa%20korupsi,KTP%20sebesar%20Rp2%2C3%20triliun." }, { bg_img: "https://media.hitekno.com/thumbs/2020/11/16/41112-ilustrasi-tower-bts-jaringan-telekomunikasi/730x480-img-41112-ilustrasi-tower-bts-jaringan-telekomunikasi.jpg", url: "https://www.cnbcindonesia.com/market/20231017153607-17-481303/hitungan-kerugian-bakti-rp803-t-jadi-sorotan-ini-kata-pakar#:~:text=Sebagaimana%20diketahui%2C%20BPKP%20dan%20Kejaksaan,4.200%20BTS%20yang%20harus%20dikerjakan." }, { bg_img: "https://asset.kompas.com/crops/KO37uK8jDpgInoihwYvscoJS7VM=/0x0:0x0/750x500/data/photo/2012/12/10/1455551-proyek-hambalang-p.jpg", url: "https://www.cnnindonesia.com/nasional/20160330205132-12-120654/bpk-kerugian-negara-proyek-hambalang-rp706-miliar" }]
+        }
+    },
+    computed: {
+        ...mapState(useIProject, ["projects"])
+    },
+    methods: {
+        ...mapActions(useIProject, ["fetchProjects"]),
+        showProject() {
+            this.valueProject = !this.valueProject
+        }
+    },
+    created() {
+        this.fetchProjects()
+    },
+}
+</script>
+
+<style scoped>
+.row {
+    max-width: 100%;
+    gap: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+</style>
